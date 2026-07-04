@@ -5,106 +5,138 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>CV · Bảo Phong</title>
 <meta name="description" content="CV tương tác của Bảo Phong — người làm được mọi thứ." />
+<!-- Font kiểu VnExpress: serif có chân, hỗ trợ tiếng Việt -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  /* ===== BIẾN MÀU — CHẾ ĐỘ TỐI (mặc định) ===== */
+  /* ===== BẢNG MÀU BÌNH MINH (sáng, ấm) ===== */
   :root{
-    --bg:#0b0f1a; --bg-2:#111827; --card:#161d2e; --card-2:#1c2740;
-    --text:#eef2ff; --muted:#9aa7c7;
-    --gold:#f5c451; --cyan:#38e1c6; --violet:#8b7bff; --pink:#ff7eb6;
-    --line:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.45);
+    --bg:#fbf5ec; --bg-2:#ffffff; --card:#ffffff; --card-2:#f5ecdd;
+    --text:#2a2233; --muted:#7c6f66;
+    --gold:#e08a2b; --amber:#f0a637; --peach:#ff8a6b; --forest:#2f7a58; --sky:#4a90c2;
+    --line:rgba(60,40,20,.12); --shadow:0 22px 55px rgba(150,110,60,.18);
+    --glow:0 0 40px rgba(240,166,55,.35);
   }
-  /* ===== CHẾ ĐỘ SÁNG ===== */
-  body.light{
-    --bg:#f4f6fc; --bg-2:#ffffff; --card:#ffffff; --card-2:#eef2fb;
-    --text:#1a2236; --muted:#5b6b8c;
-    --gold:#d99a00; --cyan:#0aa793; --violet:#6b5bff;
-    --line:rgba(20,30,60,.10); --shadow:0 20px 50px rgba(50,70,120,.15);
-  }
-
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
-    background:var(--bg); color:var(--text); line-height:1.6;
-    overflow-x:hidden; -webkit-font-smoothing:antialiased;
-    transition:background .5s, color .5s;
+    font-family:'Noto Serif', Georgia, 'Times New Roman', Times, serif;
+    background:var(--bg); color:var(--text); line-height:1.65;
+    overflow-x:hidden;-webkit-font-smoothing:antialiased;
   }
 
-  /* ===== Nền chuyển động ===== */
-  .aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-  .aurora span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:float 18s ease-in-out infinite}
-  body.light .aurora span{opacity:.28}
-  .aurora span:nth-child(1){width:340px;height:340px;background:var(--violet);top:-80px;left:-60px}
-  .aurora span:nth-child(2){width:300px;height:300px;background:var(--cyan);bottom:-90px;right:-50px;animation-delay:-6s}
-  .aurora span:nth-child(3){width:260px;height:260px;background:var(--gold);top:40%;left:55%;animation-delay:-11s;opacity:.35}
-  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.15)}}
+  /* ===== Thanh tiến trình cuộn ===== */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
+    background:linear-gradient(90deg,var(--gold),var(--peach));box-shadow:var(--glow)}
 
-  .wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:0 20px}
-
-  /* ===== NÚT NỔI (nhạc + sáng/tối) ===== */
+  /* ===== Nút nổi ===== */
   .fabs{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:10px}
-  .fab{
-    width:44px;height:44px;border-radius:50%;border:1px solid var(--line);cursor:pointer;
-    background:var(--card);color:var(--text);font-size:19px;box-shadow:var(--shadow);
-    display:flex;align-items:center;justify-content:center;transition:transform .2s,border-color .2s;
-  }
-  .fab:hover{transform:scale(1.08);border-color:var(--cyan)}
+  .fab{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;
+    background:rgba(255,255,255,.25);backdrop-filter:blur(8px);color:#fff;font-size:19px;
+    box-shadow:0 6px 20px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+  .fab:hover{transform:scale(1.08)}
 
-  /* ===== MÀN CHÀO ===== */
-  #intro{
-    position:fixed;inset:0;z-index:50;
-    background:radial-gradient(120% 120% at 50% 0%, #16203a 0%, var(--bg) 70%);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:32px;transition:opacity .8s ease, visibility .8s;
-  }
-  body.light #intro{background:radial-gradient(120% 120% at 50% 0%, #e7edfb 0%, var(--bg) 70%)}
-  #intro.hide{opacity:0;visibility:hidden}
-  .intro-badge{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);
-    border:1px solid var(--line);padding:6px 14px;border-radius:999px;margin-bottom:26px;animation:fadeUp .8s .1s both}
-  .intro-hello{font-size:26px;font-weight:700;line-height:1.5;max-width:460px;min-height:120px}
-  .intro-hello .accent{color:var(--gold)}
-  .cursor{display:inline-block;width:2px;background:var(--cyan);margin-left:2px;animation:blink 1s step-end infinite}
+  /* ===================================================== */
+  /* ===== LANDING: CẢNH NÚI RỪNG BÌNH MINH ===== */
+  /* ===================================================== */
+  .landing{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;padding:40px 22px}
+  .scene{position:absolute;inset:0;z-index:0}
+  .scene svg{width:100%;height:100%;display:block}
+  /* ẢNH NỀN THẬT (bg.jpg): nếu có file sẽ đè lên cảnh vẽ; thiếu file thì tự ẩn, cảnh vẽ hiện lại */
+  .scene-photo{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
+  /* lớp phủ tối để chữ nổi rõ trên ảnh sáng */
+  .scrim{position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      radial-gradient(ellipse 85% 62% at 50% 44%, rgba(8,12,10,.62) 0%, rgba(8,12,10,.12) 62%, rgba(8,12,10,0) 80%),
+      linear-gradient(to bottom, rgba(6,10,14,.55) 0%, rgba(6,10,14,.12) 32%, rgba(6,10,14,.30) 72%, rgba(6,10,14,.55) 100%)}
+
+  /* hạt sáng bay */
+  .motes{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden}
+  .mote{position:absolute;bottom:-10px;width:5px;height:5px;border-radius:50%;
+    background:radial-gradient(circle,#fff,rgba(255,220,150,.6));opacity:0;animation:rise linear infinite}
+  @keyframes rise{0%{transform:translateY(0) scale(.6);opacity:0}
+    10%{opacity:.9}90%{opacity:.7}100%{transform:translateY(-100svh) scale(1.1);opacity:0}}
+
+  .landing-inner{position:relative;z-index:4;color:#fff;max-width:560px}
+  .eyebrow{font-size:12.5px;letter-spacing:5px;text-transform:uppercase;color:#ffe6bf;margin-bottom:20px;
+    font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.45);animation:fadeUp .9s .1s both}
+  .greet{font-size:19px;font-weight:600;line-height:1.5;min-height:58px;text-shadow:0 2px 16px rgba(0,0,0,.5);margin-bottom:6px}
+  .greet .cursor{display:inline-block;width:3px;background:#ffd89b;margin-left:2px;animation:blink 1s step-end infinite}
   @keyframes blink{50%{opacity:0}}
-  .intro-sub{color:var(--muted);margin-top:18px;font-size:15px;animation:fadeUp .8s 2.6s both}
-  .btn-start{margin-top:34px;padding:16px 30px;border:none;border-radius:999px;cursor:pointer;
-    font-size:16px;font-weight:700;color:#0b0f1a;background:linear-gradient(120deg,var(--gold),var(--cyan));
-    box-shadow:0 12px 30px rgba(56,225,198,.3);animation:fadeUp .8s 3s both, pulse 2.4s 3.5s ease-in-out infinite;transition:transform .2s}
+  .avatar{width:92px;height:92px;border-radius:50%;margin:16px auto 14px;
+    background:linear-gradient(135deg,var(--forest),var(--amber));display:flex;align-items:center;justify-content:center;
+    font-size:34px;font-weight:800;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.35);border:3px solid rgba(255,255,255,.55);
+    background-size:cover;background-position:center;overflow:hidden;animation:fadeUp .9s .3s both}
+  .landing h1{font-size:clamp(46px,14vw,82px);font-weight:900;letter-spacing:-.5px;line-height:.98;
+    color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.4);animation:fadeUp .9s .45s both}
+  .landing h1 .amp{background:linear-gradient(120deg,#ffe0a3,#ff9e6d);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .role{margin-top:14px;color:#ffe6bf;font-weight:700;font-size:18px;min-height:26px;transition:opacity .3s;
+    text-shadow:0 2px 14px rgba(0,0,0,.5);animation:fadeUp .9s .6s both}
+  .tagline{margin-top:14px;color:rgba(255,255,255,.92);font-size:15.5px;max-width:440px;margin-left:auto;margin-right:auto;
+    text-shadow:0 2px 14px rgba(0,0,0,.45);animation:fadeUp .9s .7s both}
+  .btn-start{margin-top:30px;padding:16px 34px;border:none;border-radius:999px;cursor:pointer;
+    font-family:inherit;font-size:16px;font-weight:800;color:#3a2410;
+    background:linear-gradient(120deg,#ffe0a3,#ffb07a);box-shadow:0 14px 34px rgba(255,150,90,.45);
+    animation:fadeUp .9s .85s both, pulse 2.6s 2s ease-in-out infinite;transition:transform .2s}
   .btn-start:active{transform:scale(.96)}
-  @keyframes pulse{0%,100%{box-shadow:0 12px 30px rgba(56,225,198,.3)}50%{box-shadow:0 12px 44px rgba(245,196,81,.5)}}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes pulse{0%,100%{box-shadow:0 14px 34px rgba(255,150,90,.4)}50%{box-shadow:0 14px 52px rgba(255,224,163,.7)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .scroll-hint{position:absolute;bottom:22px;left:0;right:0;z-index:4;color:rgba(255,255,255,.9);
+    font-size:12px;letter-spacing:2px;text-shadow:0 2px 10px rgba(0,0,0,.5);animation:bob 1.8s ease-in-out infinite}
+  .scroll-hint .arrow{display:block;font-size:20px;margin-top:2px}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(8px);opacity:1}}
 
-  /* ===== HERO ===== */
-  header.hero{padding:70px 0 20px;text-align:center}
-  .avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 20px;
-    background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;
-    font-size:44px;font-weight:800;color:#0b0f1a;box-shadow:var(--shadow);border:3px solid rgba(255,255,255,.15);
-    background-size:cover;background-position:center;overflow:hidden}
-  .hero h1{font-size:34px;font-weight:800;letter-spacing:-.5px}
-  .hero .role{margin-top:10px;color:var(--cyan);font-weight:600;font-size:16px;min-height:24px}
-  .hero .tagline{margin-top:14px;color:var(--muted);font-size:15px;max-width:440px;margin-left:auto;margin-right:auto}
-  .hero .cta-pdf{margin-top:20px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
-    padding:12px 22px;border-radius:999px;font-weight:700;font-size:14.5px;color:var(--text);
-    background:var(--card);border:1px solid var(--line);transition:border-color .2s,transform .2s}
-  .hero .cta-pdf:hover{border-color:var(--gold);transform:translateY(-2px)}
+  /* animation trong SVG */
+  .sun-glow{animation:sunpulse 5s ease-in-out infinite;transform-origin:center}
+  @keyframes sunpulse{0%,100%{opacity:.85}50%{opacity:1}}
+  .ray{transform-origin:720px 600px;animation:spin 90s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .mist{animation:drift 26s ease-in-out infinite}
+  .mist.b{animation-duration:34s;animation-direction:reverse}
+  @keyframes drift{0%,100%{transform:translateX(-24px)}50%{transform:translateX(24px)}}
+  .bird{animation:flap 3.2s ease-in-out infinite}
+  .bird.b2{animation-delay:.6s}.bird.b3{animation-delay:1.1s}
+  @keyframes flap{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+  .wrap{position:relative;z-index:1;max-width:660px;margin:0 auto;padding:0 20px}
+
+  /* ===== HOOK ===== */
+  .hook{margin:34px 0 26px;padding:40px 26px;border-radius:26px;text-align:center;position:relative;overflow:hidden;
+    background:linear-gradient(160deg,#fff,#f7eede);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .hook .q{font-size:23px;font-weight:800;line-height:1.4}
+  .hook .q .hl{color:var(--gold)}
+  .hook .reveal-num{font-size:74px;font-weight:900;line-height:1;margin:14px 0 4px;
+    background:linear-gradient(120deg,var(--forest),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    opacity:0;transform:scale(.6);transition:opacity .5s, transform .6s cubic-bezier(.2,1.4,.4,1)}
+  .hook .reveal-num.show{opacity:1;transform:scale(1)}
+  .hook .reveal-sub{color:var(--muted);font-size:14.5px;opacity:0;transition:opacity .6s .3s}
+  .hook .reveal-sub.show{opacity:1}
+  .hook .btn-reveal{margin-top:20px;padding:14px 28px;border:none;border-radius:999px;cursor:pointer;font-family:inherit;font-weight:800;font-size:15px;
+    color:#fff;background:linear-gradient(120deg,var(--gold),var(--peach));transition:transform .2s}
+  .hook .btn-reveal:active{transform:scale(.95)}
 
   /* ===== MENU ===== */
-  .guide-q{text-align:center;margin:44px 0 22px;font-size:19px;font-weight:700}
+  .guide-q{text-align:center;margin:44px 0 22px;font-size:20px;font-weight:800}
   .guide-q span{color:var(--gold)}
   .menu{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .menu button{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 16px;
-    text-align:left;cursor:pointer;color:var(--text);transition:transform .2s,border-color .2s,background .2s}
-  .menu button:hover,.menu button:focus{transform:translateY(-4px);border-color:var(--cyan);background:var(--card-2)}
-  .menu .ico{font-size:26px;display:block;margin-bottom:10px}
-  .menu .mt{font-weight:700;font-size:15px}
+  .menu button{position:relative;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 18px 20px;
+    text-align:left;cursor:pointer;color:var(--text);overflow:hidden;font-family:inherit;transition:transform .25s,border-color .25s,box-shadow .25s}
+  .menu button::after{content:"";position:absolute;inset:0;background:radial-gradient(120px 120px at var(--mx,50%) var(--my,0%),rgba(240,166,55,.18),transparent 60%);opacity:0;transition:opacity .3s}
+  .menu button:hover,.menu button:focus{transform:translateY(-5px);border-color:var(--gold);box-shadow:var(--glow)}
+  .menu button:hover::after{opacity:1}
+  .menu .no{position:absolute;top:14px;right:16px;font-size:12px;font-weight:800;color:var(--muted);opacity:.55}
+  .menu .ico{font-size:28px;display:block;margin-bottom:12px}
+  .menu .mt{font-weight:800;font-size:15.5px}
   .menu .md{font-size:12.5px;color:var(--muted);margin-top:3px}
 
   /* ===== SECTION ===== */
-  section.block{margin:22px 0;padding:26px 22px;border-radius:22px;background:var(--card);
-    border:1px solid var(--line);box-shadow:var(--shadow);opacity:0;transform:translateY(30px);
-    transition:opacity .7s, transform .7s}
+  section.block{margin:22px 0;padding:28px 24px;border-radius:24px;background:var(--card);
+    border:1px solid var(--line);box-shadow:var(--shadow);opacity:0;transform:translateY(34px);transition:opacity .7s,transform .7s}
   section.block.show{opacity:1;transform:translateY(0)}
-  .sec-tag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:700}
-  .sec-title{font-size:23px;font-weight:800;margin:8px 0 14px}
+  .sec-tag{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--forest);font-weight:800}
+  .sec-title{font-size:25px;font-weight:900;margin:8px 0 14px;letter-spacing:-.3px}
   .sec-title .emoji{margin-right:8px}
   p.body{color:var(--text);opacity:.92;font-size:15.5px}
   p.body + p.body{margin-top:12px}
@@ -112,104 +144,186 @@
   .skill-group{margin-top:18px}
   .skill-group h3{font-size:16px;display:flex;align-items:center;gap:8px;margin-bottom:10px}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{background:var(--card-2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13.5px}
+  .chip{background:var(--card-2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13.5px;transition:transform .2s,border-color .2s}
+  .chip:hover{transform:translateY(-2px);border-color:var(--gold)}
   .chip.hot{border-color:var(--gold);color:var(--gold)}
 
   .bar{margin:12px 0}
   .bar .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
-  .bar .track{height:9px;border-radius:999px;background:var(--card-2);overflow:hidden}
-  .bar .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--gold));width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+  .bar .track{height:10px;border-radius:999px;background:var(--card-2);overflow:hidden}
+  .bar .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--forest),var(--gold));width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
 
-  /* ===== TIMELINE ===== */
-  .timeline{position:relative;margin-top:10px;padding-left:26px}
-  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cyan),var(--gold))}
+  .timeline{position:relative;margin-top:12px;padding-left:26px}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--forest),var(--gold))}
   .tl-item{position:relative;padding:0 0 22px 8px}
   .tl-item:last-child{padding-bottom:0}
   .tl-item::before{content:"";position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;
     background:var(--gold);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--gold)}
-  .tl-year{font-size:12.5px;font-weight:700;color:var(--cyan);letter-spacing:1px}
-  .tl-role{font-size:16px;font-weight:700;margin:2px 0}
+  .tl-year{font-size:12.5px;font-weight:800;color:var(--forest);letter-spacing:1px}
+  .tl-role{font-size:16px;font-weight:800;margin:2px 0}
   .tl-desc{font-size:13.5px;color:var(--muted)}
 
-  /* ===== PORTFOLIO ===== */
   .pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
-  .pf-card{background:var(--card-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;
-    text-decoration:none;color:var(--text);transition:transform .2s,border-color .2s}
-  .pf-card:hover{transform:translateY(-4px);border-color:var(--cyan)}
-  .pf-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--violet),var(--cyan));
-    display:flex;align-items:center;justify-content:center;font-size:34px}
+  .pf-card{background:var(--card-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--text);transition:transform .25s,border-color .25s,box-shadow .25s}
+  .pf-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:var(--glow)}
+  .pf-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--forest),var(--amber));display:flex;align-items:center;justify-content:center;font-size:34px;position:relative}
+  .pf-thumb::after{content:"Xem →";position:absolute;bottom:8px;right:10px;font-size:11px;font-weight:700;color:#fff;opacity:.9}
   .pf-info{padding:12px 14px}
-  .pf-info .t{font-weight:700;font-size:14px}
+  .pf-info .t{font-weight:800;font-size:14px}
   .pf-info .d{font-size:12px;color:var(--muted);margin-top:2px}
   .pf-note{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center}
 
-  /* ===== KHÁC BIỆT ===== */
   .diff{display:grid;gap:12px;margin-top:6px}
-  .diff .row{display:flex;gap:12px;align-items:flex-start;background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .diff .row{display:flex;gap:12px;align-items:flex-start;background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px;transition:transform .2s,border-color .2s}
+  .diff .row:hover{transform:translateX(4px);border-color:var(--gold)}
   .diff .row .n{font-size:22px}
-  .diff .row .t{font-weight:700;font-size:15px}
+  .diff .row .t{font-weight:800;font-size:15px}
   .diff .row .d{font-size:13.5px;color:var(--muted)}
 
-  /* ===== LIÊN HỆ ===== */
   .contact-grid{display:grid;gap:12px;margin-top:8px}
   .contact-grid a{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
-    background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:15px 18px;transition:border-color .2s,transform .2s}
-  .contact-grid a:hover{border-color:var(--cyan);transform:translateX(4px)}
+    background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:15px 18px;transition:border-color .2s,transform .2s,box-shadow .2s}
+  .contact-grid a:hover{border-color:var(--gold);transform:translateX(4px);box-shadow:var(--glow)}
   .contact-grid .ci{font-size:22px}
   .contact-grid .cl{font-size:12.5px;color:var(--muted)}
-  .contact-grid .cv{font-weight:700;font-size:15px}
+  .contact-grid .cv{font-weight:800;font-size:15px}
 
-  .closing{text-align:center;padding:40px 20px 70px;color:var(--muted);font-size:14.5px}
-  .closing .big{font-size:18px;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .closing{text-align:center;padding:44px 20px 80px;color:var(--muted);font-size:14.5px}
+  .closing .big{font-size:20px;color:var(--gold);font-weight:800;margin-bottom:8px}
 
   .backtop{display:block;margin:16px auto 0;background:none;border:1px solid var(--line);color:var(--muted);
-    border-radius:999px;padding:8px 18px;font-size:13px;cursor:pointer}
-  .backtop:hover{border-color:var(--cyan);color:var(--cyan)}
+    border-radius:999px;padding:8px 18px;font-size:13px;cursor:pointer;font-family:inherit}
+  .backtop:hover{border-color:var(--gold);color:var(--gold)}
 
-  @media (max-width:380px){.menu{grid-template-columns:1fr}.hero h1{font-size:29px}}
+  @media (max-width:380px){.menu{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="aurora"><span></span><span></span><span></span></div>
+<div id="progress"></div>
 
-<!-- nút nhạc + sáng/tối -->
 <div class="fabs">
   <button class="fab" id="musicBtn" onclick="toggleMusic()" title="Nhạc nền">🎵</button>
-  <button class="fab" id="themeBtn" onclick="toggleTheme()" title="Sáng/Tối">🌙</button>
 </div>
-<!-- Nhạc nền: thả file music.mp3 vào cùng thư mục để có nhạc -->
 <audio id="bgm" loop preload="none"><source src="music.mp3" type="audio/mpeg"></audio>
 
-<!-- ===== MÀN CHÀO ===== -->
-<div id="intro">
-  <div class="intro-badge">CV tương tác</div>
-  <div class="intro-hello"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
-  <div class="intro-sub">Em đã chuẩn bị một hành trình nhỏ để anh/chị hiểu về em ✨</div>
-  <button class="btn-start" onclick="startCV()">Bắt đầu khám phá →</button>
-</div>
+<!-- ===================================================== -->
+<!-- LANDING: NÚI RỪNG BÌNH MINH -->
+<!-- ===================================================== -->
+<section class="landing" id="landing">
+  <div class="scene">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#20204e"/>
+          <stop offset="26%" stop-color="#4a3a70"/>
+          <stop offset="48%" stop-color="#9c5686"/>
+          <stop offset="66%" stop-color="#e37e63"/>
+          <stop offset="82%" stop-color="#ffb078"/>
+          <stop offset="100%" stop-color="#ffe6a8"/>
+        </linearGradient>
+        <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff7e0" stop-opacity="1"/>
+          <stop offset="35%" stop-color="#ffdf9e" stop-opacity=".8"/>
+          <stop offset="70%" stop-color="#ffb877" stop-opacity=".28"/>
+          <stop offset="100%" stop-color="#ffb877" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="sunCore" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fffdf5"/>
+          <stop offset="60%" stop-color="#ffeec2"/>
+          <stop offset="100%" stop-color="#ffd98f"/>
+        </radialGradient>
+        <linearGradient id="r1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c98bb0"/><stop offset="100%" stop-color="#b06f9c"/></linearGradient>
+        <linearGradient id="r2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7b5a8e"/><stop offset="100%" stop-color="#5f4676"/></linearGradient>
+        <linearGradient id="r3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3f4d6b"/><stop offset="100%" stop-color="#2c3a53"/></linearGradient>
+        <linearGradient id="r4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#27503a"/><stop offset="100%" stop-color="#183524"/></linearGradient>
+        <linearGradient id="r5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#122016"/><stop offset="100%" stop-color="#0a140d"/></linearGradient>
+      </defs>
+
+      <!-- Trời -->
+      <rect width="1440" height="900" fill="url(#sky)"/>
+
+      <!-- Quầng nắng + mặt trời đang lên -->
+      <g class="sun-glow">
+        <circle cx="720" cy="605" r="360" fill="url(#sunGlow)"/>
+        <g class="ray" opacity=".5">
+          <rect x="716" y="230" width="8" height="360" fill="#fff2cf" opacity=".35"/>
+          <rect x="716" y="230" width="8" height="360" fill="#fff2cf" opacity=".35" transform="rotate(45 720 600)"/>
+          <rect x="716" y="230" width="8" height="360" fill="#fff2cf" opacity=".35" transform="rotate(90 720 600)"/>
+          <rect x="716" y="230" width="8" height="360" fill="#fff2cf" opacity=".35" transform="rotate(135 720 600)"/>
+        </g>
+        <circle cx="720" cy="608" r="84" fill="url(#sunCore)"/>
+      </g>
+
+      <!-- Chim -->
+      <g stroke="#3a2c3f" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7">
+        <path class="bird" d="M300 250 q14 -12 28 0 q14 -12 28 0"/>
+        <path class="bird b2" d="M380 300 q11 -9 22 0 q11 -9 22 0"/>
+        <path class="bird b3" d="M1050 230 q13 -11 26 0 q13 -11 26 0"/>
+      </g>
+
+      <!-- Núi xa nhất -->
+      <path fill="url(#r1)" opacity=".85" d="M0 560 L160 470 L300 540 L430 460 L560 530 L680 480 L720 500 L820 470 L960 540 L1090 475 L1240 545 L1440 490 L1440 900 L0 900 Z"/>
+      <!-- Sương lớp 1 -->
+      <g class="mist" opacity=".5"><ellipse cx="500" cy="600" rx="420" ry="34" fill="#fff"/><ellipse cx="1050" cy="620" rx="360" ry="30" fill="#fff"/></g>
+
+      <!-- Núi giữa -->
+      <path fill="url(#r2)" d="M0 640 L150 560 L280 630 L400 555 L520 625 L640 560 L720 600 L840 555 L980 630 L1120 560 L1280 635 L1440 575 L1440 900 L0 900 Z"/>
+      <!-- Sương lớp 2 -->
+      <g class="mist b" opacity=".55"><ellipse cx="380" cy="678" rx="380" ry="30" fill="#fff"/><ellipse cx="1100" cy="690" rx="400" ry="26" fill="#fff"/></g>
+
+      <!-- Núi gần -->
+      <path fill="url(#r3)" d="M0 720 L170 645 L320 710 L470 640 L620 705 L760 650 L900 710 L1050 645 L1220 715 L1440 660 L1440 900 L0 900 Z"/>
+
+      <!-- Rừng gần -->
+      <path fill="url(#r4)" d="M0 790 L120 730 L260 785 L400 725 L560 785 L720 730 L880 788 L1040 728 L1220 786 L1440 735 L1440 900 L0 900 Z"/>
+
+      <!-- Tiền cảnh + rừng thông -->
+      <path fill="url(#r5)" d="M0 830 L1440 800 L1440 900 L0 900 Z"/>
+      <g fill="#0a140d">
+        <path d="M120 840 l16 -60 l16 60 z"/><path d="M118 812 l18 -34 l18 34 z"/>
+        <path d="M300 848 l20 -74 l20 74 z"/><path d="M298 818 l22 -42 l22 42 z"/>
+        <path d="M1180 842 l16 -58 l16 58 z"/><path d="M1178 816 l18 -34 l18 34 z"/>
+        <path d="M1330 850 l20 -72 l20 72 z"/>
+      </g>
+    </svg>
+  </div>
+  <img class="scene-photo" src="bg.jpg" alt="" onerror="this.style.display='none'">
+  <div class="scrim"></div>
+  <div class="motes" id="motes"></div>
+
+  <div class="landing-inner">
+    <div class="eyebrow">Xin chào · Nice to meet you</div>
+    <div class="greet"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
+    <div class="avatar" id="avatar">BP</div>
+    <h1>BẢO&nbsp;PHONG</h1>
+    <div class="role" id="rotator">Quay phim &amp; Dựng phim</div>
+    <p class="tagline">Một người — nhiều vai trò. Từ máy quay, hậu kỳ, AI cho tới máy xúc và vườn tược: việc gì em cũng làm được và làm tới nơi.</p>
+    <button class="btn-start" onclick="scrollMenu()">Bắt đầu khám phá →</button>
+  </div>
+  <div class="scroll-hint">CUỘN XUỐNG ĐỂ KHÁM PHÁ<span class="arrow">↓</span></div>
+</section>
 
 <div class="wrap">
 
-  <header class="hero">
-    <div class="avatar" id="avatar">BP</div>
-    <h1>Bảo Phong</h1>
-    <div class="role" id="rotator">Quay phim &amp; Dựng phim</div>
-    <p class="tagline">Một người — nhiều vai trò. Từ máy quay, hậu kỳ, AI cho tới máy xúc và vườn tược: việc gì em cũng làm được và làm tới nơi.</p>
-    <a class="cta-pdf" href="CV-BaoPhong.pdf" download>⬇️ Tải CV bản PDF</a>
-  </header>
-
-  <div class="guide-q">Anh/chị muốn <span>khám phá điều gì</span> trước ạ?</div>
-  <div class="menu">
-    <button onclick="reveal('s-about')"><span class="ico">👋</span><span class="mt">Em là ai</span><span class="md">Vài dòng về con người em</span></button>
-    <button onclick="reveal('s-skills')"><span class="ico">🛠️</span><span class="mt">Em làm được gì</span><span class="md">Bộ kỹ năng đa năng</span></button>
-    <button onclick="reveal('s-timeline')"><span class="ico">🗺️</span><span class="mt">Hành trình của em</span><span class="md">Các mốc kinh nghiệm</span></button>
-    <button onclick="reveal('s-portfolio')"><span class="ico">🎬</span><span class="mt">Sản phẩm của em</span><span class="md">Video · Ảnh · Dự án</span></button>
-    <button onclick="reveal('s-diff')"><span class="ico">⚡</span><span class="mt">Vì sao chọn em</span><span class="md">Điểm khác biệt</span></button>
-    <button onclick="reveal('s-contact')"><span class="ico">📩</span><span class="mt">Kết nối với em</span><span class="md">Liên hệ ngay</span></button>
+  <!-- HOOK -->
+  <div class="hook">
+    <div class="q">Đố anh/chị — <span class="hl">một người</span> có thể làm được <span class="hl">bao nhiêu nghề</span>?</div>
+    <div class="reveal-num" id="hookNum">7+</div>
+    <div class="reveal-sub" id="hookSub">Quay phim · Dựng phim · Chụp ảnh · AI &amp; Tool · IT mạng · Phần cứng · Máy xúc · Làm vườn…</div>
+    <button class="btn-reveal" id="hookBtn" onclick="revealHook()">Bấm để xem đáp án 👀</button>
   </div>
 
-  <!-- EM LÀ AI -->
+  <div class="guide-q">Anh/chị muốn <span>mở cánh cửa nào</span> trước ạ?</div>
+  <div class="menu" id="menu">
+    <button onclick="reveal('s-about')"><span class="no">01</span><span class="ico">👋</span><span class="mt">Em là ai</span><span class="md">Vài dòng về con người em</span></button>
+    <button onclick="reveal('s-skills')"><span class="no">02</span><span class="ico">🛠️</span><span class="mt">Em làm được gì</span><span class="md">Bộ kỹ năng đa năng</span></button>
+    <button onclick="reveal('s-timeline')"><span class="no">03</span><span class="ico">🗺️</span><span class="mt">Hành trình của em</span><span class="md">Các mốc kinh nghiệm</span></button>
+    <button onclick="reveal('s-portfolio')"><span class="no">04</span><span class="ico">🎬</span><span class="mt">Sản phẩm của em</span><span class="md">Video · Ảnh · Dự án</span></button>
+    <button onclick="reveal('s-diff')"><span class="no">05</span><span class="ico">⚡</span><span class="mt">Vì sao chọn em</span><span class="md">Điểm khác biệt</span></button>
+    <button onclick="reveal('s-contact')"><span class="no">06</span><span class="ico">📩</span><span class="mt">Kết nối với em</span><span class="md">Liên hệ ngay</span></button>
+  </div>
+
   <section class="block" id="s-about">
     <div class="sec-tag">Giới thiệu</div>
     <div class="sec-title"><span class="emoji">👋</span>Em là ai</div>
@@ -218,7 +332,6 @@
     <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
   </section>
 
-  <!-- KỸ NĂNG -->
   <section class="block" id="s-skills">
     <div class="sec-tag">Năng lực</div>
     <div class="sec-title"><span class="emoji">🛠️</span>Em làm được gì</div>
@@ -237,7 +350,6 @@
     <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
   </section>
 
-  <!-- TIMELINE -->
   <section class="block" id="s-timeline">
     <div class="sec-tag">Hành trình</div>
     <div class="sec-title"><span class="emoji">🗺️</span>Các mốc kinh nghiệm</div>
@@ -251,7 +363,6 @@
     <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
   </section>
 
-  <!-- PORTFOLIO -->
   <section class="block" id="s-portfolio">
     <div class="sec-tag">Sản phẩm</div>
     <div class="sec-title"><span class="emoji">🎬</span>Một vài sản phẩm của em</div>
@@ -265,7 +376,6 @@
     <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
   </section>
 
-  <!-- KHÁC BIỆT -->
   <section class="block" id="s-diff">
     <div class="sec-tag">Lý do</div>
     <div class="sec-title"><span class="emoji">⚡</span>Vì sao nên chọn em</div>
@@ -278,7 +388,6 @@
     <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
   </section>
 
-  <!-- LIÊN HỆ -->
   <section class="block" id="s-contact">
     <div class="sec-tag">Kết nối</div>
     <div class="sec-title"><span class="emoji">📩</span>Liên hệ với em</div>
@@ -298,50 +407,72 @@
 </div>
 
 <script>
-  /* ===== Gõ chữ màn chào ===== */
-  var helloText = "Cảm ơn anh/chị hôm nay đã ghé vào CV của em ❤️";
-  var el = document.getElementById('typed'); var i = 0;
+  /* Gõ chữ chào */
+  var helloText="Cảm ơn anh/chị hôm nay đã ghé vào CV của em ❤️";
+  var el=document.getElementById('typed'), i=0;
   function typeHello(){ if(i<=helloText.length){ el.textContent=helloText.slice(0,i); i++; setTimeout(typeHello,55);} }
   typeHello();
 
-  /* ===== Bắt đầu ===== */
-  function startCV(){ document.getElementById('intro').classList.add('hide'); setTimeout(scrollMenu,400); }
   function scrollMenu(){ document.querySelector('.guide-q').scrollIntoView({behavior:'smooth',block:'start'}); }
 
-  /* ===== Mở phần khi bấm menu ===== */
   function reveal(id){
     var s=document.getElementById(id); s.classList.add('show');
     s.querySelectorAll('.fill').forEach(function(f){ f.style.width=f.dataset.w; });
     setTimeout(function(){ s.scrollIntoView({behavior:'smooth',block:'start'}); },120);
   }
 
-  /* ===== Tự hiện khi cuộn ===== */
+  /* Thanh tiến trình */
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement, sc=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    document.getElementById('progress').style.width=(sc*100)+'%';
+  });
+
+  /* Reveal + fill */
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('show');
       e.target.querySelectorAll('.fill').forEach(function(f){ f.style.width=f.dataset.w; }); } });
   },{threshold:.15});
   document.querySelectorAll('section.block').forEach(function(s){ io.observe(s); });
 
-  /* ===== Vai trò xoay vòng ===== */
+  /* Hook */
+  function revealHook(){
+    document.getElementById('hookNum').classList.add('show');
+    document.getElementById('hookSub').classList.add('show');
+    document.getElementById('hookBtn').style.display='none';
+  }
+
+  /* Sáng theo chuột trên menu */
+  document.querySelectorAll('#menu button').forEach(function(b){
+    b.addEventListener('mousemove',function(ev){ var r=b.getBoundingClientRect();
+      b.style.setProperty('--mx',(ev.clientX-r.left)+'px'); b.style.setProperty('--my',(ev.clientY-r.top)+'px'); });
+  });
+
+  /* Vai trò xoay vòng */
   var roles=["Quay phim & Dựng phim","Nhiếp ảnh","Ứng dụng AI & Làm tool","IT mạng & Phần cứng","Lái máy xúc · Làm vườn","Người làm được mọi thứ ✨"];
-  var ri=0, rot=document.getElementById('rotator'); rot.style.transition="opacity .3s";
+  var ri=0, rot=document.getElementById('rotator');
   setInterval(function(){ ri=(ri+1)%roles.length; rot.style.opacity=0;
     setTimeout(function(){ rot.textContent=roles[ri]; rot.style.opacity=1; },300); },2200);
 
-  /* ===== Nhạc nền ===== */
+  /* Hạt sáng bay trên cảnh bình minh */
+  (function(){
+    var box=document.getElementById('motes');
+    for(var k=0;k<26;k++){
+      var m=document.createElement('div'); m.className='mote';
+      var s=2+Math.random()*4;
+      m.style.left=Math.random()*100+'%';
+      m.style.width=m.style.height=s+'px';
+      m.style.animationDuration=(9+Math.random()*11)+'s';
+      m.style.animationDelay=(Math.random()*10)+'s';
+      box.appendChild(m);
+    }
+  })();
+
+  /* Nhạc nền */
   var bgm=document.getElementById('bgm'), playing=false;
-  function toggleMusic(){
-    var btn=document.getElementById('musicBtn');
+  function toggleMusic(){ var btn=document.getElementById('musicBtn');
     if(playing){ bgm.pause(); btn.textContent="🎵"; playing=false; }
     else{ var p=bgm.play(); if(p){ p.then(function(){ btn.textContent="🔊"; playing=true; })
-      .catch(function(){ alert("Chưa có nhạc. Anh thả file tên music.mp3 vào cùng thư mục là chạy được nhé."); }); } }
-  }
-
-  /* ===== Sáng / Tối ===== */
-  function toggleTheme(){
-    document.body.classList.toggle('light');
-    document.getElementById('themeBtn').textContent = document.body.classList.contains('light') ? "☀️" : "🌙";
-  }
+      .catch(function(){ alert("Chưa có nhạc. Anh thả file tên music.mp3 vào cùng thư mục là chạy được nhé."); }); } } }
 </script>
 </body>
 </html>
