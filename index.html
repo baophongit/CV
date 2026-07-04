@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CV · Bảo Phong</title>
+<meta name="description" content="CV tương tác của Bảo Phong — người làm được mọi thứ." />
+<style>
+  /* ===== BIẾN MÀU — CHẾ ĐỘ TỐI (mặc định) ===== */
+  :root{
+    --bg:#0b0f1a; --bg-2:#111827; --card:#161d2e; --card-2:#1c2740;
+    --text:#eef2ff; --muted:#9aa7c7;
+    --gold:#f5c451; --cyan:#38e1c6; --violet:#8b7bff; --pink:#ff7eb6;
+    --line:rgba(255,255,255,.08); --shadow:0 20px 60px rgba(0,0,0,.45);
+  }
+  /* ===== CHẾ ĐỘ SÁNG ===== */
+  body.light{
+    --bg:#f4f6fc; --bg-2:#ffffff; --card:#ffffff; --card-2:#eef2fb;
+    --text:#1a2236; --muted:#5b6b8c;
+    --gold:#d99a00; --cyan:#0aa793; --violet:#6b5bff;
+    --line:rgba(20,30,60,.10); --shadow:0 20px 50px rgba(50,70,120,.15);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    background:var(--bg); color:var(--text); line-height:1.6;
+    overflow-x:hidden; -webkit-font-smoothing:antialiased;
+    transition:background .5s, color .5s;
+  }
+
+  /* ===== Nền chuyển động ===== */
+  .aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .aurora span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;animation:float 18s ease-in-out infinite}
+  body.light .aurora span{opacity:.28}
+  .aurora span:nth-child(1){width:340px;height:340px;background:var(--violet);top:-80px;left:-60px}
+  .aurora span:nth-child(2){width:300px;height:300px;background:var(--cyan);bottom:-90px;right:-50px;animation-delay:-6s}
+  .aurora span:nth-child(3){width:260px;height:260px;background:var(--gold);top:40%;left:55%;animation-delay:-11s;opacity:.35}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-30px) scale(1.15)}}
+
+  .wrap{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:0 20px}
+
+  /* ===== NÚT NỔI (nhạc + sáng/tối) ===== */
+  .fabs{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:10px}
+  .fab{
+    width:44px;height:44px;border-radius:50%;border:1px solid var(--line);cursor:pointer;
+    background:var(--card);color:var(--text);font-size:19px;box-shadow:var(--shadow);
+    display:flex;align-items:center;justify-content:center;transition:transform .2s,border-color .2s;
+  }
+  .fab:hover{transform:scale(1.08);border-color:var(--cyan)}
+
+  /* ===== MÀN CHÀO ===== */
+  #intro{
+    position:fixed;inset:0;z-index:50;
+    background:radial-gradient(120% 120% at 50% 0%, #16203a 0%, var(--bg) 70%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:32px;transition:opacity .8s ease, visibility .8s;
+  }
+  body.light #intro{background:radial-gradient(120% 120% at 50% 0%, #e7edfb 0%, var(--bg) 70%)}
+  #intro.hide{opacity:0;visibility:hidden}
+  .intro-badge{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--cyan);
+    border:1px solid var(--line);padding:6px 14px;border-radius:999px;margin-bottom:26px;animation:fadeUp .8s .1s both}
+  .intro-hello{font-size:26px;font-weight:700;line-height:1.5;max-width:460px;min-height:120px}
+  .intro-hello .accent{color:var(--gold)}
+  .cursor{display:inline-block;width:2px;background:var(--cyan);margin-left:2px;animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .intro-sub{color:var(--muted);margin-top:18px;font-size:15px;animation:fadeUp .8s 2.6s both}
+  .btn-start{margin-top:34px;padding:16px 30px;border:none;border-radius:999px;cursor:pointer;
+    font-size:16px;font-weight:700;color:#0b0f1a;background:linear-gradient(120deg,var(--gold),var(--cyan));
+    box-shadow:0 12px 30px rgba(56,225,198,.3);animation:fadeUp .8s 3s both, pulse 2.4s 3.5s ease-in-out infinite;transition:transform .2s}
+  .btn-start:active{transform:scale(.96)}
+  @keyframes pulse{0%,100%{box-shadow:0 12px 30px rgba(56,225,198,.3)}50%{box-shadow:0 12px 44px rgba(245,196,81,.5)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ===== HERO ===== */
+  header.hero{padding:70px 0 20px;text-align:center}
+  .avatar{width:120px;height:120px;border-radius:50%;margin:0 auto 20px;
+    background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;
+    font-size:44px;font-weight:800;color:#0b0f1a;box-shadow:var(--shadow);border:3px solid rgba(255,255,255,.15);
+    background-size:cover;background-position:center;overflow:hidden}
+  .hero h1{font-size:34px;font-weight:800;letter-spacing:-.5px}
+  .hero .role{margin-top:10px;color:var(--cyan);font-weight:600;font-size:16px;min-height:24px}
+  .hero .tagline{margin-top:14px;color:var(--muted);font-size:15px;max-width:440px;margin-left:auto;margin-right:auto}
+  .hero .cta-pdf{margin-top:20px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    padding:12px 22px;border-radius:999px;font-weight:700;font-size:14.5px;color:var(--text);
+    background:var(--card);border:1px solid var(--line);transition:border-color .2s,transform .2s}
+  .hero .cta-pdf:hover{border-color:var(--gold);transform:translateY(-2px)}
+
+  /* ===== MENU ===== */
+  .guide-q{text-align:center;margin:44px 0 22px;font-size:19px;font-weight:700}
+  .guide-q span{color:var(--gold)}
+  .menu{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .menu button{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 16px;
+    text-align:left;cursor:pointer;color:var(--text);transition:transform .2s,border-color .2s,background .2s}
+  .menu button:hover,.menu button:focus{transform:translateY(-4px);border-color:var(--cyan);background:var(--card-2)}
+  .menu .ico{font-size:26px;display:block;margin-bottom:10px}
+  .menu .mt{font-weight:700;font-size:15px}
+  .menu .md{font-size:12.5px;color:var(--muted);margin-top:3px}
+
+  /* ===== SECTION ===== */
+  section.block{margin:22px 0;padding:26px 22px;border-radius:22px;background:var(--card);
+    border:1px solid var(--line);box-shadow:var(--shadow);opacity:0;transform:translateY(30px);
+    transition:opacity .7s, transform .7s}
+  section.block.show{opacity:1;transform:translateY(0)}
+  .sec-tag{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:700}
+  .sec-title{font-size:23px;font-weight:800;margin:8px 0 14px}
+  .sec-title .emoji{margin-right:8px}
+  p.body{color:var(--text);opacity:.92;font-size:15.5px}
+  p.body + p.body{margin-top:12px}
+
+  .skill-group{margin-top:18px}
+  .skill-group h3{font-size:16px;display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:var(--card-2);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:13.5px}
+  .chip.hot{border-color:var(--gold);color:var(--gold)}
+
+  .bar{margin:12px 0}
+  .bar .lbl{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:5px}
+  .bar .track{height:9px;border-radius:999px;background:var(--card-2);overflow:hidden}
+  .bar .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--cyan),var(--gold));width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+
+  /* ===== TIMELINE ===== */
+  .timeline{position:relative;margin-top:10px;padding-left:26px}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--cyan),var(--gold))}
+  .tl-item{position:relative;padding:0 0 22px 8px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;
+    background:var(--gold);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--gold)}
+  .tl-year{font-size:12.5px;font-weight:700;color:var(--cyan);letter-spacing:1px}
+  .tl-role{font-size:16px;font-weight:700;margin:2px 0}
+  .tl-desc{font-size:13.5px;color:var(--muted)}
+
+  /* ===== PORTFOLIO ===== */
+  .pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .pf-card{background:var(--card-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    text-decoration:none;color:var(--text);transition:transform .2s,border-color .2s}
+  .pf-card:hover{transform:translateY(-4px);border-color:var(--cyan)}
+  .pf-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--violet),var(--cyan));
+    display:flex;align-items:center;justify-content:center;font-size:34px}
+  .pf-info{padding:12px 14px}
+  .pf-info .t{font-weight:700;font-size:14px}
+  .pf-info .d{font-size:12px;color:var(--muted);margin-top:2px}
+  .pf-note{font-size:12.5px;color:var(--muted);margin-top:12px;text-align:center}
+
+  /* ===== KHÁC BIỆT ===== */
+  .diff{display:grid;gap:12px;margin-top:6px}
+  .diff .row{display:flex;gap:12px;align-items:flex-start;background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .diff .row .n{font-size:22px}
+  .diff .row .t{font-weight:700;font-size:15px}
+  .diff .row .d{font-size:13.5px;color:var(--muted)}
+
+  /* ===== LIÊN HỆ ===== */
+  .contact-grid{display:grid;gap:12px;margin-top:8px}
+  .contact-grid a{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text);
+    background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:15px 18px;transition:border-color .2s,transform .2s}
+  .contact-grid a:hover{border-color:var(--cyan);transform:translateX(4px)}
+  .contact-grid .ci{font-size:22px}
+  .contact-grid .cl{font-size:12.5px;color:var(--muted)}
+  .contact-grid .cv{font-weight:700;font-size:15px}
+
+  .closing{text-align:center;padding:40px 20px 70px;color:var(--muted);font-size:14.5px}
+  .closing .big{font-size:18px;color:var(--gold);font-weight:700;margin-bottom:8px}
+
+  .backtop{display:block;margin:16px auto 0;background:none;border:1px solid var(--line);color:var(--muted);
+    border-radius:999px;padding:8px 18px;font-size:13px;cursor:pointer}
+  .backtop:hover{border-color:var(--cyan);color:var(--cyan)}
+
+  @media (max-width:380px){.menu{grid-template-columns:1fr}.hero h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<div class="aurora"><span></span><span></span><span></span></div>
+
+<!-- nút nhạc + sáng/tối -->
+<div class="fabs">
+  <button class="fab" id="musicBtn" onclick="toggleMusic()" title="Nhạc nền">🎵</button>
+  <button class="fab" id="themeBtn" onclick="toggleTheme()" title="Sáng/Tối">🌙</button>
+</div>
+<!-- Nhạc nền: thả file music.mp3 vào cùng thư mục để có nhạc -->
+<audio id="bgm" loop preload="none"><source src="music.mp3" type="audio/mpeg"></audio>
+
+<!-- ===== MÀN CHÀO ===== -->
+<div id="intro">
+  <div class="intro-badge">CV tương tác</div>
+  <div class="intro-hello"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
+  <div class="intro-sub">Em đã chuẩn bị một hành trình nhỏ để anh/chị hiểu về em ✨</div>
+  <button class="btn-start" onclick="startCV()">Bắt đầu khám phá →</button>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="avatar" id="avatar">BP</div>
+    <h1>Bảo Phong</h1>
+    <div class="role" id="rotator">Quay phim &amp; Dựng phim</div>
+    <p class="tagline">Một người — nhiều vai trò. Từ máy quay, hậu kỳ, AI cho tới máy xúc và vườn tược: việc gì em cũng làm được và làm tới nơi.</p>
+    <a class="cta-pdf" href="CV-BaoPhong.pdf" download>⬇️ Tải CV bản PDF</a>
+  </header>
+
+  <div class="guide-q">Anh/chị muốn <span>khám phá điều gì</span> trước ạ?</div>
+  <div class="menu">
+    <button onclick="reveal('s-about')"><span class="ico">👋</span><span class="mt">Em là ai</span><span class="md">Vài dòng về con người em</span></button>
+    <button onclick="reveal('s-skills')"><span class="ico">🛠️</span><span class="mt">Em làm được gì</span><span class="md">Bộ kỹ năng đa năng</span></button>
+    <button onclick="reveal('s-timeline')"><span class="ico">🗺️</span><span class="mt">Hành trình của em</span><span class="md">Các mốc kinh nghiệm</span></button>
+    <button onclick="reveal('s-portfolio')"><span class="ico">🎬</span><span class="mt">Sản phẩm của em</span><span class="md">Video · Ảnh · Dự án</span></button>
+    <button onclick="reveal('s-diff')"><span class="ico">⚡</span><span class="mt">Vì sao chọn em</span><span class="md">Điểm khác biệt</span></button>
+    <button onclick="reveal('s-contact')"><span class="ico">📩</span><span class="mt">Kết nối với em</span><span class="md">Liên hệ ngay</span></button>
+  </div>
+
+  <!-- EM LÀ AI -->
+  <section class="block" id="s-about">
+    <div class="sec-tag">Giới thiệu</div>
+    <div class="sec-title"><span class="emoji">👋</span>Em là ai</div>
+    <p class="body">Chào anh/chị, em là <b>Bảo Phong</b>. Nếu phải nói ngắn gọn: em là kiểu người <b>bắt tay vào là làm được</b>. Máy quay, phần mềm dựng, công cụ AI, mạng máy tính, phần cứng… hay cả những việc "chân tay" như lái máy xúc, làm vườn — em đều đã trải qua thực tế.</p>
+    <p class="body">Chính sự đa năng đó giúp em nhìn một công việc từ nhiều góc: vừa hiểu ý tưởng, vừa tự tay thực hiện, lại biết dùng công nghệ để làm nhanh và gọn hơn. Em không ngại việc mới — em xem đó là cơ hội để học.</p>
+    <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
+  </section>
+
+  <!-- KỸ NĂNG -->
+  <section class="block" id="s-skills">
+    <div class="sec-tag">Năng lực</div>
+    <div class="sec-title"><span class="emoji">🛠️</span>Em làm được gì</div>
+    <div class="skill-group"><h3>🎬 Hình ảnh &amp; Video</h3><div class="chips">
+      <span class="chip">Quay phim</span><span class="chip">Dựng phim</span><span class="chip">Chụp ảnh</span><span class="chip">Kể chuyện bằng hình</span><span class="chip">Hậu kỳ màu</span></div></div>
+    <div class="skill-group"><h3>🤖 Công nghệ &amp; AI</h3><div class="chips">
+      <span class="chip hot">Ứng dụng AI</span><span class="chip hot">Tự làm tool</span><span class="chip">IT mạng</span><span class="chip">Phần cứng máy tính</span><span class="chip">Tự động hoá</span></div></div>
+    <div class="skill-group"><h3>💪 Kỹ năng thực tế</h3><div class="chips">
+      <span class="chip">Lái máy xúc</span><span class="chip">Làm vườn</span><span class="chip">Xử lý việc hiện trường</span></div></div>
+    <div class="skill-group" style="margin-top:22px"><h3>📊 Mức độ thành thạo</h3>
+      <div class="bar"><div class="lbl"><span>Quay &amp; Dựng phim</span><span>90%</span></div><div class="track"><div class="fill" data-w="90%"></div></div></div>
+      <div class="bar"><div class="lbl"><span>Ứng dụng AI &amp; Tool</span><span>85%</span></div><div class="track"><div class="fill" data-w="85%"></div></div></div>
+      <div class="bar"><div class="lbl"><span>IT mạng &amp; Phần cứng</span><span>80%</span></div><div class="track"><div class="fill" data-w="80%"></div></div></div>
+      <div class="bar"><div class="lbl"><span>Kỹ năng thực tế</span><span>85%</span></div><div class="track"><div class="fill" data-w="85%"></div></div></div>
+    </div>
+    <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="block" id="s-timeline">
+    <div class="sec-tag">Hành trình</div>
+    <div class="sec-title"><span class="emoji">🗺️</span>Các mốc kinh nghiệm</div>
+    <p class="body" style="margin-bottom:16px">Anh sửa lại năm và mô tả cho đúng với mình nhé — đây là mẫu:</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">2024 — NAY</div><div class="tl-role">Sáng tạo nội dung &amp; AI</div><div class="tl-desc">Quay dựng, chụp ảnh, ứng dụng AI và tự làm tool phục vụ sản xuất nội dung.</div></div>
+      <div class="tl-item"><div class="tl-year">2022 — 2024</div><div class="tl-role">IT mạng &amp; phần cứng</div><div class="tl-desc">Lắp đặt, sửa chữa máy tính, xử lý hệ thống mạng.</div></div>
+      <div class="tl-item"><div class="tl-year">2020 — 2022</div><div class="tl-role">Vận hành máy móc &amp; hiện trường</div><div class="tl-desc">Lái máy xúc, làm vườn, xử lý công việc thực tế ngoài hiện trường.</div></div>
+      <div class="tl-item"><div class="tl-year">TRƯỚC ĐÓ</div><div class="tl-role">Khởi đầu &amp; học nghề</div><div class="tl-desc">Tự học nhiều kỹ năng, tích lũy kinh nghiệm đa dạng.</div></div>
+    </div>
+    <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="block" id="s-portfolio">
+    <div class="sec-tag">Sản phẩm</div>
+    <div class="sec-title"><span class="emoji">🎬</span>Một vài sản phẩm của em</div>
+    <div class="pf-grid">
+      <a class="pf-card" href="#" onclick="return false;"><div class="pf-thumb">▶️</div><div class="pf-info"><div class="t">Video dự án 1</div><div class="d">Gắn link YouTube/Drive</div></div></a>
+      <a class="pf-card" href="#" onclick="return false;"><div class="pf-thumb">📷</div><div class="pf-info"><div class="t">Bộ ảnh chụp</div><div class="d">Gắn link album</div></div></a>
+      <a class="pf-card" href="#" onclick="return false;"><div class="pf-thumb">🤖</div><div class="pf-info"><div class="t">Tool / AI</div><div class="d">Sản phẩm công nghệ</div></div></a>
+      <a class="pf-card" href="#" onclick="return false;"><div class="pf-thumb">🎞️</div><div class="pf-info"><div class="t">Video dự án 2</div><div class="d">Gắn link</div></div></a>
+    </div>
+    <div class="pf-note">Anh gửi em link video/ảnh thật, em gắn vào cho bấm mở được ngay.</div>
+    <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
+  </section>
+
+  <!-- KHÁC BIỆT -->
+  <section class="block" id="s-diff">
+    <div class="sec-tag">Lý do</div>
+    <div class="sec-title"><span class="emoji">⚡</span>Vì sao nên chọn em</div>
+    <div class="diff">
+      <div class="row"><div class="n">🎯</div><div><div class="t">Đa năng — một người bằng nhiều người</div><div class="d">Một mình cân được nhiều đầu việc, tiết kiệm chi phí và thời gian phối hợp.</div></div></div>
+      <div class="row"><div class="n">🤖</div><div><div class="t">Biết dùng AI để làm nhanh hơn</div><div class="d">Em ứng dụng AI và tự viết công cụ để tăng tốc công việc, không làm thủ công phí sức.</div></div></div>
+      <div class="row"><div class="n">🔧</div><div><div class="t">Học nhanh, tự xoay sở</div><div class="d">Gặp việc lạ em tự tìm cách giải quyết, ít khi phải chờ người khác.</div></div></div>
+      <div class="row"><div class="n">❤️</div><div><div class="t">Làm bằng cái tâm</div><div class="d">Đã nhận việc là làm tới nơi tới chốn, có trách nhiệm với kết quả.</div></div></div>
+    </div>
+    <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
+  </section>
+
+  <!-- LIÊN HỆ -->
+  <section class="block" id="s-contact">
+    <div class="sec-tag">Kết nối</div>
+    <div class="sec-title"><span class="emoji">📩</span>Liên hệ với em</div>
+    <p class="body">Cảm ơn anh/chị đã dành thời gian đọc tới đây. Nếu thấy phù hợp, mình kết nối nhé ạ!</p>
+    <div class="contact-grid">
+      <a href="mailto:baophongit@gmail.com"><span class="ci">✉️</span><span><span class="cl">Email</span><br><span class="cv">baophongit@gmail.com</span></span></a>
+      <a href="tel:+84000000000"><span class="ci">📞</span><span><span class="cl">Điện thoại</span><br><span class="cv">0000 000 000</span></span></a>
+      <a href="#" onclick="return false;"><span class="ci">📘</span><span><span class="cl">Facebook / Zalo</span><br><span class="cv">Cập nhật link ở đây</span></span></a>
+    </div>
+    <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
+  </section>
+
+  <div class="closing">
+    <div class="big">Cảm ơn anh/chị rất nhiều! 🌟</div>
+    Chúc anh/chị một ngày thật nhiều năng lượng.<br>— Bảo Phong
+  </div>
+</div>
+
+<script>
+  /* ===== Gõ chữ màn chào ===== */
+  var helloText = "Cảm ơn anh/chị hôm nay đã ghé vào CV của em ❤️";
+  var el = document.getElementById('typed'); var i = 0;
+  function typeHello(){ if(i<=helloText.length){ el.textContent=helloText.slice(0,i); i++; setTimeout(typeHello,55);} }
+  typeHello();
+
+  /* ===== Bắt đầu ===== */
+  function startCV(){ document.getElementById('intro').classList.add('hide'); setTimeout(scrollMenu,400); }
+  function scrollMenu(){ document.querySelector('.guide-q').scrollIntoView({behavior:'smooth',block:'start'}); }
+
+  /* ===== Mở phần khi bấm menu ===== */
+  function reveal(id){
+    var s=document.getElementById(id); s.classList.add('show');
+    s.querySelectorAll('.fill').forEach(function(f){ f.style.width=f.dataset.w; });
+    setTimeout(function(){ s.scrollIntoView({behavior:'smooth',block:'start'}); },120);
+  }
+
+  /* ===== Tự hiện khi cuộn ===== */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('show');
+      e.target.querySelectorAll('.fill').forEach(function(f){ f.style.width=f.dataset.w; }); } });
+  },{threshold:.15});
+  document.querySelectorAll('section.block').forEach(function(s){ io.observe(s); });
+
+  /* ===== Vai trò xoay vòng ===== */
+  var roles=["Quay phim & Dựng phim","Nhiếp ảnh","Ứng dụng AI & Làm tool","IT mạng & Phần cứng","Lái máy xúc · Làm vườn","Người làm được mọi thứ ✨"];
+  var ri=0, rot=document.getElementById('rotator'); rot.style.transition="opacity .3s";
+  setInterval(function(){ ri=(ri+1)%roles.length; rot.style.opacity=0;
+    setTimeout(function(){ rot.textContent=roles[ri]; rot.style.opacity=1; },300); },2200);
+
+  /* ===== Nhạc nền ===== */
+  var bgm=document.getElementById('bgm'), playing=false;
+  function toggleMusic(){
+    var btn=document.getElementById('musicBtn');
+    if(playing){ bgm.pause(); btn.textContent="🎵"; playing=false; }
+    else{ var p=bgm.play(); if(p){ p.then(function(){ btn.textContent="🔊"; playing=true; })
+      .catch(function(){ alert("Chưa có nhạc. Anh thả file tên music.mp3 vào cùng thư mục là chạy được nhé."); }); } }
+  }
+
+  /* ===== Sáng / Tối ===== */
+  function toggleTheme(){
+    document.body.classList.toggle('light');
+    document.getElementById('themeBtn').textContent = document.body.classList.contains('light') ? "☀️" : "🌙";
+  }
+</script>
+</body>
+</html>
