@@ -197,9 +197,17 @@
   .tl-desc{font-size:13.5px;color:var(--muted)}
 
   .pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+  .pf-grid.three{grid-template-columns:repeat(3,1fr);gap:10px}
+  .pf-grid.three .pf-thumb{font-size:30px}
+  .pf-grid.three .pf-info{padding:10px 10px}
+  .pf-grid.three .pf-info .t{font-size:12.5px;line-height:1.2}
+  .pf-grid.three .pf-info .d{font-size:10.5px}
   .pf-card{background:var(--card-2);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--text);transition:transform .25s,border-color .25s,box-shadow .25s}
   .pf-card:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:var(--glow)}
-  .pf-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--forest),var(--amber));display:flex;align-items:center;justify-content:center;font-size:34px;position:relative}
+  .pf-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,var(--forest),var(--amber));display:flex;align-items:center;justify-content:center;font-size:34px;position:relative;overflow:hidden}
+  .pf-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .pf-thumb.logo{background:#fff}
+  .pf-thumb.logo img{object-fit:contain;padding:6px}
   .pf-thumb::after{content:"Xem →";position:absolute;bottom:8px;right:10px;font-size:11px;font-weight:700;color:#fff;opacity:.9}
   .pf-info{padding:12px 14px}
   .pf-info .t{font-weight:800;font-size:14px}
@@ -370,20 +378,20 @@
     <div class="sec-title"><span class="emoji">🎬</span>Một vài sản phẩm của em</div>
 
     <h3 style="font-size:16px;margin:8px 0 10px;display:flex;align-items:center;gap:8px">🎬 Video</h3>
-    <div class="pf-grid">
-      <a class="pf-card" href="https://drive.google.com/drive/folders/1VskrZNIxfp17KRdSeWixN0BjUZOeGiKQ?usp=sharing" target="_blank" rel="noopener"><div class="pf-thumb">▶️</div><div class="pf-info"><div class="t">Album video 1</div><div class="d">Google Drive</div></div></a>
-      <a class="pf-card" href="https://drive.google.com/drive/folders/1zDWd-dYusIPpXFjYRF0D5wMgp3SGdims?usp=sharing" target="_blank" rel="noopener"><div class="pf-thumb">🎞️</div><div class="pf-info"><div class="t">Album video 2</div><div class="d">Google Drive</div></div></a>
-      <a class="pf-card" href="https://drive.google.com/file/d/1L-_pdWSILUAKc0WPMa-9VTef_GGuGAin/view?usp=sharing" target="_blank" rel="noopener"><div class="pf-thumb">▶️</div><div class="pf-info"><div class="t">Clip nổi bật</div><div class="d">Google Drive</div></div></a>
+    <div class="pf-grid three">
+      <a class="pf-card" href="https://drive.google.com/drive/folders/1VskrZNIxfp17KRdSeWixN0BjUZOeGiKQ?usp=sharing" target="_blank" rel="noopener"><div class="pf-thumb"><img src="th-huipeng.jpg" alt="Huipeng Packing"></div><div class="pf-info"><div class="t">Huipeng Packing</div><div class="d">Nhà máy</div></div></a>
+      <a class="pf-card" href="https://drive.google.com/drive/folders/1zDWd-dYusIPpXFjYRF0D5wMgp3SGdims?usp=sharing" target="_blank" rel="noopener"><div class="pf-thumb logo"><img src="th-vpbank.jpg" alt="VP Bank"></div><div class="pf-info"><div class="t">VP Bank</div><div class="d">Ngân hàng</div></div></a>
+      <a class="pf-card" href="https://drive.google.com/file/d/1L-_pdWSILUAKc0WPMa-9VTef_GGuGAin/view?usp=sharing" target="_blank" rel="noopener"><div class="pf-thumb logo"><img src="th-hiephoi.jpg" alt="Hiệp hội Cơ khí Điện TP.HCM"></div><div class="pf-info"><div class="t">Hiệp hội Cơ khí Điện</div><div class="d">TP. Hồ Chí Minh</div></div></a>
     </div>
 
     <h3 style="font-size:16px;margin:20px 0 10px;display:flex;align-items:center;gap:8px">📷 Hình ảnh</h3>
     <div class="pf-grid">
-      <a class="pf-card" href="https://photos.app.goo.gl/rucJrJbUKQteuCvv8" target="_blank" rel="noopener"><div class="pf-thumb">📷</div><div class="pf-info"><div class="t">Bộ ảnh 1</div><div class="d">Google Photos</div></div></a>
-      <a class="pf-card" href="https://photos.app.goo.gl/Bz1qzxf6jb42VLFA7" target="_blank" rel="noopener"><div class="pf-thumb">📷</div><div class="pf-info"><div class="t">Bộ ảnh 2</div><div class="d">Google Photos</div></div></a>
-      <a class="pf-card" href="https://photos.app.goo.gl/ndtnYBNbvLtbmQsf6" target="_blank" rel="noopener"><div class="pf-thumb">📸</div><div class="pf-info"><div class="t">Bộ ảnh 3</div><div class="d">Google Photos</div></div></a>
-      <a class="pf-card" href="https://photos.app.goo.gl/KqskgeYoUbZTDMRX8" target="_blank" rel="noopener"><div class="pf-thumb">📸</div><div class="pf-info"><div class="t">Bộ ảnh 4</div><div class="d">Google Photos</div></div></a>
+      <a class="pf-card" href="https://photos.app.goo.gl/rucJrJbUKQteuCvv8" target="_blank" rel="noopener"><div class="pf-thumb"><img src="th-payoo.jpg" alt="Payoo"></div><div class="pf-info"><div class="t">Payoo</div><div class="d">Bộ ảnh</div></div></a>
+      <a class="pf-card" href="https://photos.app.goo.gl/Bz1qzxf6jb42VLFA7" target="_blank" rel="noopener"><div class="pf-thumb"><img src="th-adventure.jpg" alt="Cuộc phiêu lưu kỳ thú"></div><div class="pf-info"><div class="t">Cuộc phiêu lưu kỳ thú</div><div class="d">Bộ ảnh</div></div></a>
+      <a class="pf-card" href="https://photos.app.goo.gl/ndtnYBNbvLtbmQsf6" target="_blank" rel="noopener"><div class="pf-thumb"><img src="th-kizuna.jpg" alt="KIZUNA"></div><div class="pf-info"><div class="t">KIZUNA</div><div class="d">Bộ ảnh</div></div></a>
+      <a class="pf-card" href="https://photos.app.goo.gl/KqskgeYoUbZTDMRX8" target="_blank" rel="noopener"><div class="pf-thumb"><img src="th-swancity.jpg" alt="SWAN CITY"></div><div class="pf-info"><div class="t">SWAN CITY</div><div class="d">Bộ ảnh</div></div></a>
     </div>
-    <div class="pf-note">Bấm vào từng ô để xem album trực tiếp.</div>
+    <div class="pf-note">Bấm vào từng ô để xem album/video trực tiếp.</div>
     <button class="backtop" onclick="scrollMenu()">↑ Quay lại menu</button>
   </section>
 
