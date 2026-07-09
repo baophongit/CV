@@ -538,11 +538,30 @@
     renderStep();
   })();
 
-  var bgm=document.getElementById('bgm'), playing=false;
-  function toggleMusic(){ var btn=document.getElementById('musicBtn');
-    if(playing){ bgm.pause(); btn.textContent="🎵"; playing=false; }
-    else{ var p=bgm.play(); if(p){ p.then(function(){ btn.textContent="🔊"; playing=true; })
-      .catch(function(){ alert("Chưa có nhạc. Anh thả file tên music.mp3 vào cùng thư mục là chạy được nhé."); }); } } }
+  /* ===== NHẠC NỀN: mặc định BẬT, có nút tắt ===== */
+  var bgm=document.getElementById('bgm'), musicBtn=document.getElementById('musicBtn');
+  var userMuted=false, started=false;
+  bgm.volume=0.45;
+  function setIcon(on){ musicBtn.textContent = on ? "🔊" : "🔇"; }
+  setIcon(true); // mặc định hiển thị đang bật
+  function startMusic(){
+    if(started || userMuted) return;
+    var p=bgm.play();
+    if(p){ p.then(function(){ started=true; setIcon(true); }).catch(function(){/* bị trình duyệt chặn, chờ chạm màn hình */}); }
+  }
+  // thử phát ngay khi tải trang
+  startMusic();
+  // và phát ở lần chạm/bấm đầu tiên (đảm bảo có nhạc theo mặc định)
+  ['pointerdown','touchstart','keydown'].forEach(function(ev){
+    window.addEventListener(ev, function(){ startMusic(); }, {once:true, passive:true});
+  });
+  // nút bật / tắt (mute)
+  function toggleMusic(){
+    if(!bgm.paused){ bgm.pause(); userMuted=true; setIcon(false); }
+    else{ userMuted=false; var p=bgm.play();
+      if(p){ p.then(function(){ started=true; setIcon(true); })
+        .catch(function(){ alert("Chưa có file nhạc. Hãy thả file tên music.mp3 vào cùng thư mục nhé."); }); } }
+  }
 </script>
 </body>
 </html>
